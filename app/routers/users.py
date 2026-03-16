@@ -6,6 +6,11 @@ from app.schemas.user import User, UserCreate, UserUpdate
 from fastapi import APIRouter
 
 router = APIRouter()
+@router.get("/users", response_model=list[User])
+def get_users(db: Session = Depends(get_db)):
+    users = db.query(UserModel).all()
+    return users
+
 @router.get("/users/{user_id}", response_model=User)
 def get_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db.query(UserModel).filter(UserModel.id == user_id).first()
