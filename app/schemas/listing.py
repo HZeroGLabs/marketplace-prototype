@@ -5,11 +5,12 @@ class ListingBase(BaseModel):
     price: float
 
 class ListingCreate(ListingBase):
-    pass
+    owner_id: int
 
 class Listing(ListingBase):
     id: int
     owner_id: int
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }

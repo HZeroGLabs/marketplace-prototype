@@ -15,7 +15,7 @@ def create_listing(listing: ListingCreate, db: Session = Depends(get_db)):
         title=listing.title,
         description=listing.description,
         price=listing.price,
-        owner_id=1,
+        owner_id=listing.owner_id
         )
     
     db.add(db_listing)
