@@ -5,17 +5,19 @@ from fastapi import Depends, HTTPException, APIRouter
 from app.db.database import get_db
 from app.models.listings import Listing as ListingModel
 from app.schemas.listing import Listing, ListingCreate
+from app.utils.dependencies import get_current_user
+from app.models.user import User
 
 router = APIRouter()
 
 
 @router.post("/listings", response_model=Listing)
-def create_listing(listing: ListingCreate, db: Session = Depends(get_db)):
+def create_listing(listing: ListingCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     db_listing = ListingModel(
         title=listing.title,
         description=listing.description,
         price=listing.price,
-        owner_id=listing.owner_id
+        owner_id=current_user.id
         )
     
     db.add(db_listing)

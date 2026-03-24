@@ -9,3 +9,4 @@ class User(Base):
     name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
     listings = relationship("Listing", back_populates="owner")
+    password = Column(String)

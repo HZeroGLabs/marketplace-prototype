@@ -5,7 +5,7 @@ class ListingBase(BaseModel):
     price: float
 
 class ListingCreate(ListingBase):
-    owner_id: int
+    pass
 
 class Listing(ListingBase):
     id: int
